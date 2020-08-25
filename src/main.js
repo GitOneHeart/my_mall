@@ -4,6 +4,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+
+import './assets/icons' // icon
 import './permission'
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 

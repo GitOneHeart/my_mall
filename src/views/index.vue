@@ -1,10 +1,11 @@
 <template>
   <div class="dashboard-editor-container">
-    欢迎光临
+    <panelGroup/>
   </div>
 </template>
 
 <script>
+import panelGroup from './dashboard/PanelGroup'
 import menuDataJson from '@/json/menu'
 export default {
   name: 'index',
@@ -17,6 +18,9 @@ export default {
     this.getLeftMenu() // 获取菜单数据
     // this.onload()
     // this.login()
+  },
+  components: {
+    panelGroup
   },
   methods: {
     getLeftMenu: function () {
@@ -58,6 +62,7 @@ export default {
 <style scoped lang='scss'>
 .dashboard-editor-container {
   padding: 32px;
+  padding-top: 16px;
   background-color: rgb(240, 242, 245);
   position: relative;
 
