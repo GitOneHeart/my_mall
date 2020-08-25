@@ -5,13 +5,23 @@ import Vuex from 'vuex'
 import settings from './modules/settings'
 import user from './modules/user'
 import tagsView from './modules/tagsView'
-Vue.use(Vuex)
+import MenuList from './modules/menuList'
+import createPersiste from 'vue-savedata'
 
+Vue.use(Vuex)
+const persiste = createPersiste({
+  LS: {
+    module: MenuList,
+    storePath: 'MenuList'
+  }
+})
 export default new Vuex.Store({
   modules: {
     // app,
     settings,
     user, // 用户信息
-    tagsView
-  }
+    tagsView,
+    MenuList
+  },
+  plugins: [persiste]
 })

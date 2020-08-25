@@ -1,36 +1,56 @@
 <template>
-  <div class="dashboard-editor-container">111</div>
+  <div class="dashboard-editor-container">
+    欢迎光临
+  </div>
 </template>
 
 <script>
+import menuDataJson from '@/json/menu'
 export default {
   name: 'index',
-  methods: {
-    login: function () {
-      this.$axios.post('/permission/add', {
-        params: {
-          permissionId: '001',
-          permissionName: 'admin'
-        }
-      }).then(res => {
-        console.log(res)
-      })
-    },
-    onload: function () {
-      this.$axios.get('/order/list', {
-        params: {
-          orderStatus: '',
-          page: 1,
-          size: 10
-        }
-      }).then(res => {
-        console.log(res)
-      })
+  data () {
+    return {
+      menuList: []
     }
   },
   created () {
-    // this.login()
+    this.getLeftMenu() // 获取菜单数据
     // this.onload()
+    // this.login()
+  },
+  methods: {
+    getLeftMenu: function () {
+      this.MenuList = menuDataJson
+      console.log(this.MenuList)
+      this.$store.commit('getmenulist', Object.assign(this.MenuList))
+      // this.$axios.get('/mock/menu-shop.json').then(res => {
+      //   if (res.status === 200) {
+      //     this.menuList = res.data.data
+      //     this.$store.commit('getmenulist', this.menuList)
+      //   }
+      // })
+    }
+    // login: function () {
+    //   this.$axios.post('/permission/add', {
+    //     params: {
+    //       permissionId: '001',
+    //       permissionName: 'admin'
+    //     }
+    //   }).then(res => {
+    //     console.log(res)
+    //   })
+    // },
+    // onload: function () {
+    //   this.$axios.get('/order/list', {
+    //     params: {
+    //       orderStatus: '',
+    //       page: 1,
+    //       size: 10
+    //     }
+    //   }).then(res => {
+    //     console.log(res)
+    //   })
+    // }
   }
 }
 </script>

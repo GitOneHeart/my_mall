@@ -6,7 +6,6 @@
 <script>
 export default {
   mounted () {
-    // const url = '/api/search/searchword'
   }
 }
 </script>

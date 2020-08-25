@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 /* Layout */
-import Layout from '@/layout'
+import Layout from '@/layout/index'
 Vue.use(VueRouter)
 /**
  * Note: 路由配置项
@@ -21,7 +21,22 @@ Vue.use(VueRouter)
   }
  */
 // 如首页和登录页和一些不用权限的公用页面
-export const commontRouterMap = [
+const routes = [
+  // {
+  //   path: '/redirect',
+  //   component: Layout,
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: '/redirect/:path(.*)',
+  //       component: () => import('@/views/redirect')
+  //     }
+  //   ]
+  // },
+  {
+    path: '/',
+    redirect: '/login'
+  },
   {
     path: '/login',
     hidden: true, // 不在slider显示
@@ -38,123 +53,98 @@ export const commontRouterMap = [
     component: () => import('@/views/error/401')
   },
   {
-    path: '/',
+    path: '',
     component: Layout,
-    name: 'index',
-    hidden: true, // 不在slider显示
+    // hidden: true, // 不在slider显示
+    redirect: '/index',
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/index')
+        path: '/index',
+        name: '首页',
+        component: () => import('@/views/index'),
+        meta: { title: '首页' }
+      },
+      {
+        path: '/shop',
+        name: 'Shop',
+        // component: () => import('@/views/shop/shopwarehouse'),
+        meta: {
+          title: '商品管理'
+        }
+      },
+      {
+        path: '/shop/warehouse',
+        name: 'Warehouse',
+        component: () => import('@/views/shop/shopwarehouse'),
+        meta: {
+          title: '商品仓库'
+        }
+      }, {
+        path: '/shop/add',
+        name: 'Add',
+        component: () => import('@/views/shop/addshop'),
+        meta: {
+          title: '添加商品'
+        }
+      },
+      {
+        path: 'order',
+        name: 'Order',
+        component: () => import('@/views/order/order'),
+        meta: {
+          title: '订单管理'
+        }
+      },
+      {
+        path: '/operation/backstage',
+        name: 'Backstage',
+        component: () => import('@/views/operation/backstage'),
+        meta: {
+          title: '后台分类管理'
+        }
+      },
+      {
+        path: '/operation/promotion',
+        name: 'Promotion',
+        component: () => import('@/views/operation/promotion'),
+        meta: {
+          title: '促销管理'
+        }
+      },
+      {
+        path: '/user',
+        name: 'User',
+        component: () => import('@/views/user/user'),
+        meta: {
+          title: '用户管理'
+        }
+      },
+      {
+        path: '/myapp/apphome',
+        name: 'Apphome',
+        component: () => import('@/views/myapp/apphome'),
+        meta: {
+          title: 'app管理首页'
+        }
+      },
+      {
+        path: '/myapp/appclassify',
+        name: 'Appclassify',
+        component: () => import('@/views/myapp/appclassify'),
+        meta: {
+          title: 'app管理'
+        }
       }
     ]
   }
 ]
 // 异步挂载的路由
 // 动态需要根据权限加载的路由表
-export const asyncRouterMap = [{
-  path: '/index',
-  component: Layout,
-  redirect: '/index',
-  meta: { title: 'Home', icon: 'el-icon-menu' }
-},
-{
-  path: '/shop',
-  component: Layout,
-  name: 'Shop',
-  meta: {
-    title: '商品管理',
-    icon: 'el-icon-goods'
-  },
-  children: [
-    {
-      path: 'warehouse', // 不加 /
-      name: 'Warehouse',
-      component: () => import('@/views/shop/shopwarehouse'),
-      meta: { title: '商品仓库' }
-    },
-    {
-      path: 'add', // 不加 /
-      name: 'Add',
-      component: () => import('@/views/shop/addshop'),
-      meta: { title: '添加商品' }
-    }
-  ]
-},
-{
-  path: '/order',
-  component: Layout,
-  name: 'Order',
-  meta: {
-    title: '订单管理',
-    icon: 'el-icon-s-order'
-  }
-},
-{
-  path: '/operation',
-  component: Layout,
-  name: 'Operation',
-  meta: {
-    title: '运营管理',
-    icon: 'el-icon-s-platform'
-  },
-  children: [
-    {
-      path: 'backstage', // 不加 /
-      name: 'Backstage',
-      component: () => import('@/views/operation/backstage'),
-      meta: { title: '后台分类管理' }
-    },
-    {
-      path: 'promotion', // 不加 /
-      name: 'Promotion',
-      component: () => import('@/views/operation/promotion'),
-      meta: { title: '促销管理' }
-    }
-  ]
-},
-{
-  path: 'user', // 不加 /
-  name: 'User',
-  component: Layout,
-  // component: () => import('@/views/user/index'),
-  meta: {
-    title: '用户管理',
-    icon: 'el-icon-user-solid'
-  }
-},
-{
-  path: '/myapp',
-  component: Layout,
-  name: 'Myapp',
-  meta: {
-    title: 'App内容管理',
-    icon: 'el-icon-news'
-  },
-  children: [
-    {
-      path: 'apphome', // 不加 /
-      name: 'Apphome',
-      component: () => import('@/views/myapp/apphome'),
-      meta: { title: 'app管理首页' }
-    },
-    {
-      path: 'appclassify', // 不加 /
-      name: 'Appclassify',
-      component: () => import('@/views/myapp/appclassify'),
-      meta: { title: 'app管理分类' }
-    }
-  ]
-}]
+
 const router = new VueRouter({
   mode: 'history', // 去掉url中的#
   base: process.env.BASE_URL,
-  routes: commontRouterMap
+  routes
 })
-// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
-export function resetRouter () {
-  const newRouter = router()
-  router.matcher = newRouter.matcher // reset router
-}
 
 export default router

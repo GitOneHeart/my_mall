@@ -9,36 +9,47 @@
         :unique-opened="true"
         :active-text-color="ActiveColor"
         :collapse-transition="false"
-        router
         mode="vertical"
+        router
       >
-        <SlidebarItem v-for="(route, index) in getrouters" :key="route.path + index" :item="route" />
+        <template v-for="item of getLeftMenu">
+          <el-menu-item :index="item.path" :key="item.id" v-if="item.children.length === 0">
+            <i :class="item.meta.icon"></i>
+            <span slot="title">{{item.meta.title}}</span>
+          </el-menu-item>
+          <SidebarItem v-else :key="item.id" :data="item" />
+        </template>
       </el-menu>
     </el-scrollbar>
   </div>
 </template>
 <script>
 // import {  } from 'vuex'
-import { commontRouterMap, asyncRouterMap } from '@/router'
-import SlidebarItem from './SidebarItem'
+// import { commontRouterMap, asyncRouterMap } from '@/router'
+import SidebarItem from './SidebarItem'
 import logo from './logo'
 import variables from '@/assets/styles/variables.scss'
 export default {
   data () {
     return {
-      ActiveColor: '#ffd04b' // 左侧菜单栏文字点击颜色
+      ActiveColor: '#1890ff' // 左侧菜单栏文字点击颜色
     }
   },
   components: {
     logo,
-    SlidebarItem
+    SidebarItem
+  },
+  watch: {
   },
   computed: {
     // 路由表
-    getrouters () {
-      console.log(typeof (commontRouterMap))
-      console.log(typeof (asyncRouterMap))
-      return commontRouterMap.concat(asyncRouterMap)
+    getLeftMenu: function () {
+      const data = localStorage.getItem('saveData')
+      // console.log()
+      const menudata = JSON.parse(data).MenuList.menulist
+      console.log(menudata)
+      return menudata
+      // return this.$store.state.MenuList.menulist
     },
     // is显示logo
     showlogo () {
@@ -48,18 +59,19 @@ export default {
     isCollapse () {
       return false
     },
+    getPath () {
+      return this.$route.path
+    },
     // 样式
     variables () {
       return variables
     }
   },
   created () {
-    this.test()
+    console.log(this.getLeftMenu)
   },
   methods: {
-    test () {
-      console.log(this.getrouters)
-    }
+
   }
 }
 </script>

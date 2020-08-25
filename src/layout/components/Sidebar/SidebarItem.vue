@@ -1,33 +1,34 @@
 <template>
   <div class="menu-wrapper">
-    <!-- 最后一级菜单 -->
-    <el-menu-item
-      v-if="!item.children && !item.hidden"
-      :key="item.path"
-      :index="item.path"
-    >
-      <i :class="item.meta.icon"></i>
-      <span slot="title">{{ item.meta.title }}</span>
-    </el-menu-item>
-    <el-submenu v-if="item.children && !item.hidden" :index="item.path" popper-append-to-body>
-      <template slot="title">
-        <i :class="item.meta && item.meta.icon"></i>
-        <span slot="title">{{ item.meta.title }}</span>
-      </template>
-      <!-- 递归 -->
-      <sidebar-item
-        v-for="(child, index) in item.children"
-        :index="item.path +'/'+child.path"
-        :key="child.path + index"
-        :is-nest="true"
-        :item="child"
-        class="nest-menu"
-      />
-    </el-submenu>
+    <template functional>
+      <!-- 二级菜单 -->
+      <el-submenu class="adsadasdasdasdsadsa" :index="data.path" popper-append-to-body>
+        <template slot="title">
+          <i :class="data.meta.icon"></i>
+          <span>{{data.meta.title}}</span>
+        </template>
+        <!-- 二级菜单下的子菜单 -->
+        <template v-for="item in data.children">
+          <el-menu-item
+            class="subitem cgfjhgjghjhjhjffjfg"
+            :key="item.id"
+            v-if="item.children.length===0"
+            :index="data.path+'/'+item.path"
+          >
+            <i :class="item.meta.icon"></i>
+            <span slot="title">{{item.meta.title}}</span>
+          </el-menu-item>
+          <!-- 三级菜单 -->
+          <sidebar-item v-else :data="item" :key="item.id"></sidebar-item>
+        </template>
+      </el-submenu>
+    </template>
   </div>
 </template>
 
 <script>
+// import path from 'path'
+// import { isExternal } from '@/util/validate'
 export default {
   name: 'SidebarItem',
   data () {
@@ -35,35 +36,24 @@ export default {
     }
   },
   props: {
-    item: {
-      type: Object,
-      required: true
-    },
-    isNest: {
-      type: Boolean,
-      default: false
-    },
-    // basePath: {
-    //   type: String,
-    //   default: ''
-    // },
-    parent: {
-      type: String,
-      default: ''
-    }
+    data: [Array, Object]
   },
-  created () {
+  mounted () {
     this.test()
   },
   methods: {
     test () {
-      // console.log(this.menu instanceof Array)
-      console.log(this.item.children)
-    },
-    goTo (path) {
-      console.log('111')
-      return this.$router.replace.path
+      console.log(this.data)
     }
+    // resolvePath (routePath) {
+    //   if (isExternal(routePath)) {
+    //     return routePath
+    //   }
+    //   if (isExternal(this.basePath)) {
+    //     return this.basePath
+    //   }
+    //   return path.resolve(this.basePath, routePath)
+    // }
   }
 }
 </script>

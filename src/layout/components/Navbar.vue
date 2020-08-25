@@ -1,5 +1,6 @@
 <template>
   <div class="navbar">
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
@@ -20,15 +21,22 @@
 </template>
 
 <script>
+import Breadcrumb from '@/components/Breadcrumb/index'
 import { mapGetters } from 'vuex'
 export default {
+  data () {
+    return {}
+  },
   components: {
+    Breadcrumb
   },
   computed: {
     ...mapGetters([
       'sidebar',
       'avatar'
     ])
+  },
+  created () {
   },
   methods: {
     toggleSideBar () {
@@ -41,13 +49,12 @@ export default {
         type: 'warning'
       }).then(() => {
         console.log('退出登录')
+        this.$store.commit('storeToken', '')
+        this.$router.push('/login')
         // this.$store.dispatch('LogOut').then(() => {
         //   location.href = '/index'
         // })
       })
-    },
-    test () {
-      console.log(this.avatar)
     }
   }
 }

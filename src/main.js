@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import './permission'
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 
 import ElementUI from 'element-ui' // ElementUI
@@ -32,21 +33,23 @@ const Axios = axios.create({
     Authorization: 'apikey0001'
   }
 })
-Vue.prototype.$axios = Axios
-// 拦截器
-// axios.interceptors.request.use(response => {
+// axios拦截器
+// Axios.interceptors.request.use(response => {
 //   // return response
-//   const res = response.data
-//   console.log(res)
-//   if (res.status === 0) {
-//     return res.data
-//   } else if (res.status === 10) {
-//     console.log('yic')
-//   }
+//   // response.headers.Authorization = window.sessionStorage.getItem('token')
+//   // console.log(response)
+
+//   // return response
+//   // if (res.status === 0) {
+//   //   return res.data
+//   // } else if (res.status === 10) {
+//   //   console.log('yic')
+//   // }
 // }, error => {
 //   // 对响应错误做点什么
 //   return Promise.reject(error)
 // })
+Vue.prototype.$axios = Axios
 new Vue({
   router,
   store,

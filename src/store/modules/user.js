@@ -7,7 +7,10 @@ const user = {
     permissions: []
   },
   mutations: {
-
+    storeToken: (state, newVal) => {
+      state.token = newVal
+      console.log(state.token, '----这儿存储的token')
+    }
   },
   actions: {
 
