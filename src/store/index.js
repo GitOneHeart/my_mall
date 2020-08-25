@@ -4,7 +4,6 @@ import Vuex from 'vuex'
 // import app from './modules/app.js'
 import settings from './modules/settings'
 import user from './modules/user'
-import tagsView from './modules/tagsView'
 import MenuList from './modules/menuList'
 import createPersiste from 'vue-savedata'
 
@@ -20,7 +19,6 @@ export default new Vuex.Store({
     // app,
     settings,
     user, // 用户信息
-    tagsView,
     MenuList
   },
   plugins: [persiste]

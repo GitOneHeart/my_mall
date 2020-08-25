@@ -34,21 +34,22 @@ const Axios = axios.create({
   }
 })
 // axios拦截器
-// Axios.interceptors.request.use(response => {
-//   // return response
-//   // response.headers.Authorization = window.sessionStorage.getItem('token')
-//   // console.log(response)
+Axios.interceptors.request.use(response => {
+  console.log(response)
+  // return response
+  // response.headers.Authorization = window.sessionStorage.getItem('token')
+  // console.log(response)
 
-//   // return response
-//   // if (res.status === 0) {
-//   //   return res.data
-//   // } else if (res.status === 10) {
-//   //   console.log('yic')
-//   // }
-// }, error => {
-//   // 对响应错误做点什么
-//   return Promise.reject(error)
-// })
+  // return response
+  // if (res.status === 0) {
+  //   return res.data
+  // } else if (res.status === 10) {
+  //   console.log('yic')
+  // }
+}, error => {
+  // 对响应错误做点什么
+  return Promise.reject(error)
+})
 Vue.prototype.$axios = Axios
 new Vue({
   router,
