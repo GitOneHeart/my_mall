@@ -10,12 +10,15 @@ import './permission'
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 
 import ElementUI from 'element-ui' // ElementUI
-import 'element-ui/lib/theme-chalk/index.css'
+// import 'element-ui/lib/theme-chalk/index.css'
 
 import VueAxios from 'vue-axios'
 import Config from './util/request'
 import '@/assets/styles/index.scss' // global css
-import '@/assets/styles/ruoyi.scss' // ruoyi css
+// import '@/assets/styles/ruoyi.scss' // ruoyi css
+// Fragment
+import Fragment from 'vue-fragment'
+Vue.use(Fragment.Plugin)
 Vue.use(ElementUI, {
   size: Cookies.get('size') || 'medium' // set element-ui default size
 })

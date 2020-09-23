@@ -1,13 +1,13 @@
 <template>
   <div class="login">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
+    <el-form ref="loginForm" :model="loginForm" :rules="loginrules" class="login-form">
       <h3 class="title">qgs的系统</h3>
-      <el-form-item>
-        <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="账号">
+      <el-form-item prop="username">
+        <el-input type="text" v-model="loginForm.username"  placeholder="账号">
           <i class="el-input__icon input-icon"></i>
         </el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="password">
         <el-input v-model="loginForm.password" type="password" auto-complete="off" placeholder="密码">
           <i class="el-input__icon input-icon"></i>
         </el-input>
@@ -20,7 +20,7 @@
           <img src />
         </div>
       </el-form-item>
-      <el-checkbox v-model="loginForm.remeberme" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
+      <el-checkbox v-model="loginForm.remeberme" @change="remeberPassword" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
       <el-form-item style="width:100%;">
         <el-button
           :loading="loading"
@@ -36,7 +36,7 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2018-2019 ruoyi.vip All Rights Reserved.</span>
+      <span>Copyright © 2019-2020 qgs-abc.</span>
     </div>
   </div>
 </template>
@@ -48,14 +48,15 @@ export default {
       loading: false,
       loginForm: {
         username: 'admin',
-        password: 'admin123',
+        password: '123456',
         remeberme: true,
         code: '',
         uuid: ''
       },
-      loginRules: {
+      loginrules: {
         username: [
-          { required: true, trigger: 'blur', message: '用户名不能为空' }
+          { required: true, trigger: 'blur', message: '用户名不能为空' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
         password: [
           { required: true, trigger: 'blur', message: '密码不能为空' }
@@ -65,6 +66,10 @@ export default {
     }
   },
   methods: {
+    remeberPassword: function () {
+      const remeberStatus = this.loginForm.remeberme === true ? 1 : 0
+      console.log(remeberStatus)
+    },
     handleLogin: function () {
       console.log('登录校验')
       this.$refs.loginForm.validate(vaild => {

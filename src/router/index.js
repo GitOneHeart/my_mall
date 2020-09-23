@@ -60,16 +60,17 @@ const routes = [
     children: [
       {
         path: '/index',
-        name: '首页',
+        name: 'Index',
         component: () => import('@/views/index'),
-        meta: { title: '首页' }
+        meta: { title: '首页', isTabsPage: true }
       },
       {
         path: '/shop',
         name: 'Shop',
         // component: () => import('@/views/shop/shopwarehouse'),
         meta: {
-          title: '商品管理'
+          title: '商品管理',
+          isTabsPage: true
         }
       },
       {
@@ -77,14 +78,16 @@ const routes = [
         name: 'Warehouse',
         component: () => import('@/views/shop/shopwarehouse'),
         meta: {
-          title: '商品仓库'
+          title: '商品仓库',
+          isTabsPage: true
         }
       }, {
         path: '/shop/add',
         name: 'Add',
         component: () => import('@/views/shop/addshop'),
         meta: {
-          title: '添加商品'
+          title: '添加商品',
+          isTabsPage: true
         }
       },
       {
@@ -92,7 +95,8 @@ const routes = [
         name: 'Order',
         component: () => import('@/views/order/order'),
         meta: {
-          title: '订单管理'
+          title: '订单管理',
+          isTabsPage: true
         }
       },
       {
@@ -100,7 +104,8 @@ const routes = [
         name: 'Backstage',
         component: () => import('@/views/operation/backstage'),
         meta: {
-          title: '后台分类管理'
+          title: '后台分类管理',
+          isTabsPage: true
         }
       },
       {
@@ -108,7 +113,8 @@ const routes = [
         name: 'Promotion',
         component: () => import('@/views/operation/promotion'),
         meta: {
-          title: '促销管理'
+          title: '促销管理',
+          isTabsPage: true
         }
       },
       {
@@ -116,7 +122,8 @@ const routes = [
         name: 'User',
         component: () => import('@/views/user/user'),
         meta: {
-          title: '用户管理'
+          title: '用户管理',
+          isTabsPage: true
         }
       },
       {
@@ -124,7 +131,8 @@ const routes = [
         name: 'Apphome',
         component: () => import('@/views/myapp/apphome'),
         meta: {
-          title: 'app管理首页'
+          title: 'app管理首页',
+          isTabsPage: true
         }
       },
       {
@@ -132,7 +140,8 @@ const routes = [
         name: 'Appclassify',
         component: () => import('@/views/myapp/appclassify'),
         meta: {
-          title: 'app管理'
+          title: 'app管理',
+          isTabsPage: true
         }
       }
     ]

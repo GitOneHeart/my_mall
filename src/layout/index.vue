@@ -1,32 +1,44 @@
 <template>
-  <div class="app-wrapper">
+  <div :class="classObj" class="app-wrapper">
+    <!-- <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" /> -->
     <sidebar class="sidebar-container" />
-    <div class="main-container">
+    <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
         <navbar />
+        <tags-view />
       </div>
-      <AppMain></AppMain>
+      <app-main />
     </div>
   </div>
 </template>
 <script>
-// import sidebar from './componemts/Sidebar'
 import AppMain from './components/AppMain'
 import Navbar from './components/Navbar'
+import TagsView from './components/TagsView'
 import Sidebar from './components/Sidebar'
 
 import { mapState } from 'vuex'
 export default {
   components: {
     Navbar,
+    TagsView,
     Sidebar,
     AppMain
   },
   computed: {
     ...mapState({
+      sidebar: state => state.app.sidebar,
       needTagsView: state => state.settings.tagsView,
       fixedHeader: state => state.settings.fixedHeader
-    })
+    }),
+    classObj () {
+      return {
+        hideSidebar: !this.sidebar.opened,
+        openSidebar: this.sidebar.opened,
+        withoutAnimation: this.sidebar.withoutAnimation,
+        mobile: this.device === 'mobile'
+      }
+    }
   }
 }
 </script>

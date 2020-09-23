@@ -1,8 +1,8 @@
 <template>
-  <div class="menu-wrapper">
+  <fragment class="menu-wrapper">
     <template functional>
       <!-- 二级菜单 -->
-      <el-submenu class="adsadasdasdasdsadsa" :index="data.path" popper-append-to-body>
+      <el-submenu :index="data.path" popper-append-to-body>
         <template slot="title">
           <i :class="data.meta.icon"></i>
           <span>{{data.meta.title}}</span>
@@ -10,7 +10,7 @@
         <!-- 二级菜单下的子菜单 -->
         <template v-for="item in data.children">
           <el-menu-item
-            class="subitem cgfjhgjghjhjhjffjfg"
+            class="subitem"
             :key="item.id"
             v-if="item.children.length===0"
             :index="data.path+'/'+item.path"
@@ -23,7 +23,7 @@
         </template>
       </el-submenu>
     </template>
-  </div>
+  </fragment>
 </template>
 
 <script>

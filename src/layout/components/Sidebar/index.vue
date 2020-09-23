@@ -3,7 +3,8 @@
     <logo :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
-        :default-active="$route.path"
+        :default-active="activeMenu"
+        :collapse="isCollapse"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
         :unique-opened="true"
@@ -24,7 +25,8 @@
   </div>
 </template>
 <script>
-// import {  } from 'vuex'
+
+import { mapGetters } from 'vuex'
 // import { commontRouterMap, asyncRouterMap } from '@/router'
 import SidebarItem from './SidebarItem'
 import logo from './logo'
@@ -42,6 +44,7 @@ export default {
   watch: {
   },
   computed: {
+    ...mapGetters(['sidebar']),
     // 路由表
     getLeftMenu: function () {
       const data = localStorage.getItem('saveData')
@@ -55,9 +58,18 @@ export default {
     showlogo () {
       return this.$store.state.settings.sidebarLogo
     },
+    activeMenu () {
+      const route = this.$route
+      const { meta, path } = route
+      // if set path, the sidebar will highlight the path you set
+      if (meta.activeMenu) {
+        return meta.activeMenu
+      }
+      return path
+    },
     // 侧边栏展开/收缩
     isCollapse () {
-      return false
+      return !this.sidebar.opened
     },
     getPath () {
       return this.$route.path
@@ -68,10 +80,18 @@ export default {
     }
   },
   created () {
-    console.log(this.getLeftMenu)
+    console.log(this.sidebar, '-----传递的折叠栏参数')
+  },
+  mounted () {
+    console.log(this.sidebar, '-----传递的折叠栏参数')
   },
   methods: {
-
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleClose (key, keyPath) {
+      console.log(key, keyPath)
+    }
   }
 }
 </script>

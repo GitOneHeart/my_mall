@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 // modules
-// import app from './modules/app.js'
+import app from './modules/app.js'
 import settings from './modules/settings'
 import user from './modules/user'
 import MenuList from './modules/menuList'
 import createPersiste from 'vue-savedata'
-
+import getters from './getters'
 Vue.use(Vuex)
 const persiste = createPersiste({
   LS: {
@@ -15,8 +15,9 @@ const persiste = createPersiste({
   }
 })
 export default new Vuex.Store({
+  getters,
   modules: {
-    // app,
+    app,
     settings,
     user, // 用户信息
     MenuList
